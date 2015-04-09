@@ -1,6 +1,5 @@
-key = {'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7,'i':8,'j':9,'k':10,'l':11,'m':12,'n':13,'o':14,'p':15,'q':16,'r':17,'s':18,'t':19,'u':20,'v':21,'w':22,'x':23,'y':24,'z':25}
-
-reverse = 'zyxwvutsrqponmlkjihgfedcba'
+from string import ascii_lowercase
+key = dict(zip(ascii_lowercase, ascii_lowercase[::-1]))
 
 
 def five(word):
@@ -12,26 +11,21 @@ def five(word):
 
 def encode(word):
     """ This function takes a word and encodes it using an atbash cipher """
-    word = word.lower()
-    word = word.strip()
-    word = word.replace(',', '')
-    word = word.replace('.', '')
-    word = word.replace(' ', '')
+    word = [c for c in word.lower() if c.isalnum()]
     encoded_string = ''
     for c in word:
-        if c in reverse:
-            encoded_string += str(reverse[key[c]])
+        if c in ascii_lowercase:
+            encoded_string += key[c]
         else:
-            encoded_string += str(c)
+            encoded_string += c
     encoded_string = five(encoded_string)
     return encoded_string
 
 
 def decode(word):
     """ This function takes a word in the cipher and returns it decoded, without spaces if necessary """
-    word = word.lower()
-    word = word.replace(" ",'')
+    word = [c for c in word.lower() if c.isalnum()]
     decoded = ''
     for c in word:
-        decoded += str(reverse[key[c]])
+        decoded += key[c]
     return decoded
