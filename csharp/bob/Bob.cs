@@ -1,20 +1,17 @@
 ﻿using System;
 
-namespace Bob
-{
-
-    public class Bob
+public class Bob
     {
-        public bool Hey(string phrase)
+        public string Hey(string phrase)
         {   
             if (IsSilence(phrase)){
                 return "Fine. Be that way!";
             }
+	    if (IsYell(phrase)){
+                return "Whoa, chill out!";
+            }
             if (IsQuestion(phrase)){
                 return "Sure.";
-            }
-            if (IsYell(phrase)){
-                return "Whoa, chill out!";
             }
             else{
                 return "Whatever.";
@@ -22,7 +19,7 @@ namespace Bob
         }
         private bool IsSilence(string phrase)
         {
-            return phrase.Trim() = "";
+            return phrase.Trim() == "";
         }
         private bool IsQuestion(string phrase)
         {
@@ -30,7 +27,7 @@ namespace Bob
         }
         private bool IsYell(string phrase)
         {
-            return phrase.ToUpper() == phrase;
+            return phrase.ToUpper() == phrase && System.Text.RegularExpressions.Regex.IsMatch(phrase, "[a-zA-Z]+");
         }
     }
-}
+
